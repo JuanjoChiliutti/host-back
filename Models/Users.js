@@ -33,7 +33,23 @@ const userSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  // checklists: [{ type: mongoose.Schema.Types.ObjectId, ref: "Checklist" }],
 });
+
+// userSchema.pre("save", async function (next) {
+//   if (this.isModified("cuit") || this.isNew) {
+//     try {
+//       const checklistModel = mongoose.model("Checklist");
+//       await checklistModel.updateMany(
+//         { _id: { $in: this.checklists } },
+//         { cuit: this.cuit }
+//       );
+//     } catch (err) {
+//       console.error("Error updating CUIT in checklists:", err);
+//     }
+//   }
+//   next();
+// });
 
 userSchema.pre("save", function (next) {
   const user = this;
